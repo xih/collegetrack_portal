@@ -45,25 +45,43 @@ Scenario: Deselecting filters by changing filters
 
 Scenario: Filter by university as staff
   As a College Track staff
-  When I select Stanford University as a filter
-  Then I should see student’s emails who go to Stanford University
+  Given I see the filters: University of Southern California
+  And I add the filters: Stanford
+  Then the recipient fields should contain: darwin.braun@mante.name, marcia@boylezboncak.io
 
-Scenario: Filter by language as staff
+Scenario: Filter by gender as staff
   As a College Track staff
-  When I select Swahili as the primary language of parents filter
-  Then I should see student’s emails that correspond to parents speaking Swahili
+  Given I add the filters: female
+  Then the recipient fields should contain: hosea@eichmannkonopelski.info, lonie_osinski@murray.org
 
-Scenario: Filter by non-citizens as staff
+Scenario: Filter by year as staff
   As a College Track staff
-  When I select no citizenship access filter
-  Then I should see student’s emails who aren’t US citizens (illegally documented)
+  Given I see the filters: sophomore
+  And I add the filters: freshmen
+  Then the recipient fields should contain: darwin.braun@mante.name, mikel.mitchell@oconnell.org
 
-Scenario: Filter by thresholds as staff
+Scenario: Filter by gender and race
   As a College Track staff
-  When I select 33 ACT and 3.8 GPA
-  Then I should see only students with these thresholds
+  Given I add the filters: female, african american
+  Then the recipient fields should contain: courtney@stiedemann.net, zachery@bailey.info
+ 
 
-Scenario: Filter by specific groups as staff
-  As a College Track staff
-  When I select Oakland filter
-  Then I should see see student emails that correspond to these centers
+# Scenario: Filter by language as staff
+#   As a College Track staff
+#   When I select Swahili as the primary language of parents filter
+#   Then I should see student’s emails that correspond to parents speaking Swahili
+
+# Scenario: Filter by non-citizens as staff
+#   As a College Track staff
+#   When I select no citizenship access filter
+#   Then I should see student’s emails who aren’t US citizens (illegally documented)
+
+# Scenario: Filter by thresholds as staff
+#   As a College Track staff
+#   When I select 33 ACT and 3.8 GPA
+#   Then I should see only students with these thresholds
+
+# Scenario: Filter by specific groups as staff
+#   As a College Track staff
+#   When I select Oakland filter
+#   Then I should see see student emails that correspond to these centers
