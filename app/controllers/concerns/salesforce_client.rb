@@ -36,6 +36,8 @@ module SalesforceClient
             upperRange = range[6..9].to_f
             options << "#{query_key} >= (#{lowerRange})"
             options << "#{query_key} <= (#{upperRange})"
+          end
+        end
       end
     end
 
