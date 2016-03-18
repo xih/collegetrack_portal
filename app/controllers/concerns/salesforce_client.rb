@@ -21,23 +21,28 @@ module SalesforceClient
     # Set Student/Parent filter options
     emailFields = grab_email(filters.delete("Parent/Student"))
     options << "(" + emailFields.map { |v| "#{v} != null" }.join(' OR ') + ")"
-
+    
+    
+    
+    
     # Set Additional Options
     filters.each do |category, values|
-      query_key = get_column(category)
-      group = values.map {|v| "'#{v}'"}.join(', ')
-      options << "#{query_key} IN (#{group})"
-      if query_key == "UC_GPA__C"
-        get_filter_values.gpa.each do |range|
+      if category == "gpa"
+        # Set GPA filter options
+        get_filter_values.years.each do |range|
           lowerRange = range[0..3].to_f
           if lowerRange == 4.0
-            options << "#{query_key} >= (#{lowerRange})"
-          else 
-            upperRange = range[6..9].to_f
-            options << "#{query_key} >= (#{lowerRange})"
-            options << "#{query_key} <= (#{upperRange})"
+            options << "UC_GPA__c >= 4.0"
+          else
+            upperRange = range[6..-1].to_f
+            options << "UC_GPA__c >= lowerRange"
+            options << "UC_GPA__c <= upperRange"
           end
         end
+      else
+        query_key = get_column(category)
+        group = values.map {|v| "'#{v}'"}.join(', ')
+        options << "#{query_key} IN (#{group})"
       end
     end
 
