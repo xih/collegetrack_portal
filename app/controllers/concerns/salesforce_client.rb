@@ -27,6 +27,16 @@ module SalesforceClient
       query_key = get_column(category)
       group = values.map {|v| "'#{v}'"}.join(', ')
       options << "#{query_key} IN (#{group})"
+      if query_key == "UC_GPA__C"
+        get_filter_values.gpa.each do |range|
+          lowerRange = range[0..3].to_f
+          if lowerRange == 4.0
+            options << "#{query_key} >= (#{lowerRange})"
+          else 
+            upperRange = range[6..9].to_f
+            options << "#{query_key} >= (#{lowerRange})"
+            options << "#{query_key} <= (#{upperRange})"
+      end
     end
 
     # Join all options as a String and request to Salesforce
@@ -54,10 +64,11 @@ module SalesforceClient
                                   RecordType.Name = 'CT High School Student' AND 
                                   High_School__r.Name != null 
                                  GROUP BY High_School__r.Name").map(&:Name)
+    gpa = ["4.0 +", "3.5 - 4.0", "3.0 - 3.5", "2.5 - 3.0", "2.0 - 2.5", "0.0 - 2.0"]
     parent_student = ["Student", "Parent"]
-    #language = get_values('Primary_Home_Language__c')
+    language = get_values('Primary_Home_Language__c')
     stem = get_values("STEM__c")
-    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years,  "STEM" => stem, "High School" => high_schools}
+    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years, "Language" => language, "stem" => stem, "gpa" => gpa, "High School" => high_schools}
   end
 
   def get_values(column)
@@ -79,10 +90,12 @@ module SalesforceClient
       "Class_Level__c"
     when "High School"
       "High_School__r.Name"
-    #when "Language"
-    #  "Primary_Home_Language__c"
+    when "Language"
+      "Primary_Home_Language__c"
     when "stem"
       "STEM__c"
+    when "gpa"
+      "UC_GPA__c"
     else
     end
   end
