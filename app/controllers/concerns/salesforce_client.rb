@@ -56,7 +56,8 @@ module SalesforceClient
                                  GROUP BY High_School__r.Name").map(&:Name)
     parent_student = ["Student", "Parent"]
     language = get_values('Primary_Home_Language__c')
-    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years, "Language" => language, "High School" => high_schools}
+    stem = get_values('STEM__c')
+    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years, "Language" => language, "STEM" => stem, "High School" => high_schools}
   end
 
   def get_values(column)
@@ -80,6 +81,8 @@ module SalesforceClient
       "High_School__r.Name"
     when "Language"
       "Primary_Home_Language__c"
+    when "STEM"
+      "STEM__c"
     else
     end
   end
