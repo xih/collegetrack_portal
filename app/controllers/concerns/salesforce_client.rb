@@ -31,6 +31,7 @@ module SalesforceClient
         # Set GPA filter options
         get_filter_values.years.each do |range|
           lowerRange = range[0..3].to_f
+          options << "UC_GPA__c != null"
           if lowerRange == 4.0
             options << "UC_GPA__c >= 4.0"
           else
