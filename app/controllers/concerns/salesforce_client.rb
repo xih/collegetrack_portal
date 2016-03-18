@@ -55,9 +55,9 @@ module SalesforceClient
                                   High_School__r.Name != null 
                                  GROUP BY High_School__r.Name").map(&:Name)
     parent_student = ["Student", "Parent"]
-    language = get_values('Primary_Home_Language__c')
+    #language = get_values('Primary_Home_Language__c')
     stem = get_values("STEM__c")
-    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years, "Language" => language, "STEM" => stem, "High School" => high_schools}
+    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years,  "STEM" => stem, "High School" => high_schools}
   end
 
   def get_values(column)
@@ -79,8 +79,8 @@ module SalesforceClient
       "Class_Level__c"
     when "High School"
       "High_School__r.Name"
-    when "Language"
-      "Primary_Home_Language__c"
+    #when "Language"
+    #  "Primary_Home_Language__c"
     when "stem"
       "STEM__c"
     else
