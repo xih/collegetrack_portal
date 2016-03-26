@@ -28,17 +28,24 @@ module SalesforceClient
     # Set Additional Options
     filters.each do |category, values|
       if category == "gpa"
+        options << "UC_GPA__c != null"
         # Set GPA filter options
-        get_filter_values.years.each do |range|
+        gpa_query = []
+        values.each do |range|
           lowerRange = range[0..3].to_f
-          options << "UC_GPA__c != null"
+          puts "lower range: " + lowerRange.to_s
           if lowerRange == 4.0
-            options << "UC_GPA__c >= 4.0"
+            gpa_query << "UC_GPA__c >= 4.0"
+            puts "gpa_query: " + gpa_query.to_s
           else
             upperRange = range[6..-1].to_f
-            options << "UC_GPA__c >= lowerRange"
-            options << "UC_GPA__c <= upperRange"
+            puts "lower range: " + lowerRange.to_s + " upper range: " + upperRange.to_s
+            gpa_query << "(UC_GPA__c >= #{lowerRange} AND UC_GPA__c <= #{upperRange})"
+            
+            puts "gpa_query: " + gpa_query.to_s
           end
+          options << "(" + gpa_query.join(' OR ') + ")"
+          puts "options: " + options.to_s
         end
       else
         query_key = get_column(category)
