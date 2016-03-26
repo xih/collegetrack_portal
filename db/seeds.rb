@@ -16,3 +16,4 @@ User.create!(:name => 'Jerry Uejio', :email => 'jerryuejio@gmail.com', :password
 User.create!(:name => 'Hatim Khan', :email => 'hatimkhan@berkeley.edu', :password => 'password', :role => 'Admin')
 
 User.create!(:name => 'Molly Zhai', :email => 'mmzhai@berkeley.edu', :password => 'password', :role => 'Admin')
+User.create!(:name => 'Avi Frankl', :email => 'afrankl@berkeley.edu', :password => 'password', :role => 'Admin')
