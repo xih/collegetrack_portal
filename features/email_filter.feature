@@ -20,56 +20,57 @@ Scenario: Add a single filter with default filter selected
 
   Given I see the filters: Student
   And I add the filters: Oakland Technical High School
-  Then the recipient fields should contain: ae2599@gmail.com, allison.su.truong@gmail.com, yasin1998green@gmail.com
+  Then the recipient fields should contain: aaronbrowne29@gmail.com, angelah.asiimwe@yahoo.com, williamshuang2147@gmail.com
 
 Scenario: Adding multiple filters with existing filters
 
   Given I see the filters: Student,Oakland Technical High School
-  And the recipient fields should contain: ae2599@gmail.com, allison.su.truong@gmail.com, yasin1998green@gmail.com
-  And I add the filters: Caucasian
-  Then the recipient fields should contain: ambermccutchen1996@gmail.com
+  And the recipient fields should contain: aaronbrowne29@gmail.com, angelah.asiimwe@yahoo.com, williamshuang2147@gmail.com
+  And I add the filters: Asian
+  Then the recipient fields should contain: amy.huynh123@yahoo.com
 
 Scenario: Removing a single filter through the x button
 
-  Given I see the filters: Student,Oakland Technical High School,Caucasian
-  And the recipient fields should contain: ambermccutchen1996@gmail.com
+  Given I see the filters: Student,Oakland Technical High School,Asian
+  And the recipient fields should contain: amy.huynh123@yahoo.com
   And I click the x button on "Oakland Technical High School"
-  Then the recipient fields should contain: austen.junca@gmail.com, ambermccutchen1996@gmail.com
+  Then the recipient fields should contain: alexfeng420@gmail.com, amyhaunter@gmail.com, huangg.crystal@gmail.com
 
 Scenario: Deselecting filters by changing filters
 
-  Given I see the filters: Student,Oakland Technical High School,Caucasian
-  And the recipient fields should contain: ambermccutchen1996@gmail.com
+  Given I see the filters: Student,Oakland Technical High School,Asian
+  And the recipient fields should contain: amy.huynh123@yahoo.com
   And I remove the filters: Oakland Technical High School
-  Then the recipient fields should contain: austen.junca@gmail.com, ambermccutchen1996@gmail.com
+  Then the recipient fields should contain: alexfeng420@gmail.com, amyhaunter@gmail.com, huangg.crystal@gmail.com
 
-Scenario: Filter by university as staff
-  As a College Track staff
-  Given I see the filters: University of Southern California
-  And I add the filters: Stanford
-  Then the recipient fields should contain: darwin.braun@mante.name, marcia@boylezboncak.io
+# Scenario: Filter by university as staff
+#   As a College Track staff
+#   Given I see the filters: University of Southern California
+#   And I add the filters: Stanford
+#   Then the recipient fields should contain: darwin.braun@mante.name, marcia@boylezboncak.io
 
 Scenario: Filter by gender as staff
-  As a College Track staff
-  Given I add the filters: female
-  Then the recipient fields should contain: hosea@eichmannkonopelski.info, lonie_osinski@murray.org
+  Given I see the filters: Student 
+  And I add the filters: Female
+  Then the recipient fields should contain: abigail.l.2018@lighthousecharter.org, adawkins715@gmail.com
 
-Scenario: Filter by year as staff
-  As a College Track staff
-  Given I see the filters: sophomore
-  And I add the filters: freshmen
-  Then the recipient fields should contain: darwin.braun@mante.name, mikel.mitchell@oconnell.org
+# Scenario: Filter by year as staff
+#   As a College Track staff
+#   Given I see the filters: sophomore
+#   And I add the filters: freshmen
+#   Then the recipient fields should contain: darwin.braun@mante.name, mikel.mitchell@oconnell.org
 
 Scenario: Filter by gender and race
-  As a College Track staff
-  Given I add the filters: female, african american
-  Then the recipient fields should contain: courtney@stiedemann.net, zachery@bailey.info
+  Given I see the filters: Student,Female
+  And I add the filters: African American
+  Then the recipient fields should contain: adawkins715@gmail.com, ciaras62@gmail.com
  
 
-# Scenario: Filter by language as staff
-#   As a College Track staff
-#   When I select Swahili as the primary language of parents filter
-#   Then I should see student’s emails that correspond to parents speaking Swahili
+
+Scenario: Filter by language as staff
+  Given I see the filters: Student
+  And I add the filters: Spanish
+  Then the recipient fields should contain: yasmineflores2013@gmail.com, sand.3401@mail.com
 
 # Scenario: Filter by non-citizens as staff
 #   As a College Track staff
