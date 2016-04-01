@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get    'email/user_list'
 
   get    'groups/' => 'groups#index', :as => :groups
+  get    'groups/new', to: 'groups#new', as: 'new_group'
+  
 
   get    'admin/' => 'admin#index', :as => :admin
   post   'admin/' => 'admin#new', :as => :new_user

@@ -29,7 +29,7 @@ Then /^(?:|I )click the x button on "(.*)"$/ do |filters|
 end
 
 Then /^the recipient fields should contain: (.*)$/ do |emails|
-  emails = emails.split(", ")
+emails = emails.split(", ")
   count = 0
   page.all('.filter_box').each do |elem|
     if emails.include?(elem.find('.left_fil').text)

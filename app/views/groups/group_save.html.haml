@@ -1,0 +1,7 @@
+- content_for(:head) do
+  = stylesheet_link_tag 'groups'
+  = javascript_include_tag 'groups'
+
+
+= render 'partials/header'
+    = render "filters", :filter_values => @filter_values
