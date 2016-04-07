@@ -23,8 +23,10 @@
 # User.create!(:name => 'Dennis Xing', :email => 'yxing@berkeley.edu', :password => 'password', :role => 'Admin')
 # User.create!(:name => 'Brandon Chau', :email => 'brandonachau@berkeley.edu', :password => 'password', :role => 'Admin')
 
-User.all.each do |u|
+# User.all.each do |u|
 	#u.groups.create!(:name => 'High GPA', :filters => 'GPA > 3.5')
-	u.groups.create!(:name => 'Low GPA', :filters => 'GPA < 2.5')
-	u.groups.create!(:name => 'Oakland High GPA', :filters => 'Lives in Oakland, GPA > 3.1')
-end
+#	u.groups.create!(:name => 'Low GPA', :filters => 'GPA < 2.5')
+#	u.groups.create!(:name => 'Oakland High GPA', :filters => 'Lives in Oakland, GPA > 3.1')
+#end
+
+User.create!(:name => 'Aaron Zhang', :email => 'aaron.zhang@berkeley.eduu', :password => 'password', :role => 'Admin')
