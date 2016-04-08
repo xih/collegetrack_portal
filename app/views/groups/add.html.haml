@@ -1,0 +1,21 @@
+- content_for(:head) do
+  = stylesheet_link_tag 'groups'
+  = javascript_include_tag 'groups'
+
+= render 'partials/header'
+
+%div#name
+  %a Group Name
+  %input{:type => "text"}
+
+.container#add_group
+  = render 'add_edit_partial'
+
+%br
+%br
+%br
+
+%div#buttons
+  = link_to groups_index_path do
+    %button.button-tool Cancel
+  %button{:id => 'save_filter', :class => 'button-tool'} Save

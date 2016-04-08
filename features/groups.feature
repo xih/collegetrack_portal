@@ -1,4 +1,4 @@
-  Feature: Viewing the groups
+Feature: Viewing the groups
   As a College Track staff,
   In order to visualize the groups saved,
   I want to view the groups that are represented in the model as well as a button to add a new group.

@@ -6,11 +6,6 @@
 = render 'partials/header'
 
 .container#admin_body
-  %div#groups
-    %div.button
-      %button{:id => "add_group"} +
-    - @groups.each do |g|
-      %div.cell
-        %a= g.name
+  = render 'index_partial'
 
 

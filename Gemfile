@@ -3,7 +3,7 @@ ruby '1.9.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'fake_student', git:'https://github.com/mmzhai/fake_student.git'
