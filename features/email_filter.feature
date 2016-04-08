@@ -64,23 +64,21 @@ Scenario: Filter by gender and race
   Given I see the filters: Student,Female
   And I add the filters: African American
   Then the recipient fields should contain: adawkins715@gmail.com, ciaras62@gmail.com
- 
-
 
 Scenario: Filter by language as staff
   Given I see the filters: Student
   And I add the filters: Spanish
   Then the recipient fields should contain: yasmineflores2013@gmail.com, sand.3401@mail.com
 
+ Scenario: Filter by GPA as staff
+  Given I see the filters: Student
+  And I add the filters: 4.0 +,3.5 - 4.0
+  Then the recipient fields should contain: beckyliang99@gmail.com, tiffanywong104@gmail.com
+
 # Scenario: Filter by non-citizens as staff
 #   As a College Track staff
 #   When I select no citizenship access filter
 #   Then I should see student’s emails who aren’t US citizens (illegally documented)
-
-# Scenario: Filter by thresholds as staff
-#   As a College Track staff
-#   When I select 33 ACT and 3.8 GPA
-#   Then I should see only students with these thresholds
 
 # Scenario: Filter by specific groups as staff
 #   As a College Track staff
