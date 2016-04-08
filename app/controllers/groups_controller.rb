@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   include SalesforceClient
   def index
-  	@groups = Group.where(:user => current_user)
+  	@groups = current_user.groups
   	return
   end
 
@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
   def delete
   	name = params[:name]
   	if Group.exists?(:name => name)
-  		group = Group.where(:name => name).first
+  		group = current_user.groups.where(:name => name).first
   		group.destroy()
   	end
   	redirect_to groups_index_path
@@ -38,9 +38,9 @@ class GroupsController < ApplicationController
   		else
   			current_user.groups.create!(:name => name, :filters => filters)
   		end
-  		return render nothing: true, status: 278
+  		render nothing: true, status: 278
   	else
-  		return render nothing: true, status: 500
+  		render nothing: true, status: 500
   	end
   end
 end

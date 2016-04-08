@@ -1,28 +1,43 @@
+@javascript
+
 Feature: Viewing the groups
   As a College Track staff,
-  In order to visualize the groups saved,
-  I want to view the groups that are represented in the model as well as a button to add a new group.
+  I want to be able see the list of filter groups that I have saved
+  I also want to be able to add, update, and delete the list of filter groups
 
-Background:
+Background: Users have been added to the database  
+
   Given the following users exist:
-  | name                   | email                | role | password |
-  | Avi Frankl             | afrankl@berkeley.edu | Admin| password |
+  | email                   | password |
+  | petrduong@gmail.com     | password |
+  | jason.chern93@gmail.com | password |
+  | shinyenhuang@gmail.com  | password |
 
-  Given the following groups exist for all users:
-  | name       | filters              |
-  | High GPA   | GPA > 3.0            |
-  | Low GPA    | GPA < 2.5            |  
-  | Medium GPA | GPA > 2.5, GPA < 3.5 |  
+  And I am on the login page
+  And I login as "petrduong@gmail.com"
+  And I go to the groups tab
+  Given the following groups exist for user: "petrduong@gmail.com":
+  | name          |   filters                                 |
+  | Low GPA       |   2.5 - 3.0,2.0 - 2.5,0.0 - 2.0           |
+  | Young         |   9th Grade,10th Grade                    |
+  | Old           |   11th Grade,12th Grade                   |
 
-Scenario: Log in and see the groups
-  
-  Given I am an authorized user
-  And I login as "afrankl@berkeley.edu"
-  Then I should be on the new email page
-  Then I should see "Groups"
 
-  When I click Groups to change tabs
-  Then I should see "High GPA"
-  Then I should see "Low GPA"
-  Then I should see "Medium GPA"
-  Then I should see "+"
+ Scenario: Add a Group
+    Given I go to the add button
+    When I fill in "Group Name" with "High GPA"
+    And I add the filters: "4.0 +"
+    And I press "Save"
+    Then I should see "High GPA"
+
+  Scenario: Update a group to include race
+    Given I should see "Low GPA"
+    When I click on "Low GPA"
+    And I add the filters: "Asian,Other"
+    And I press "Save"
+    Then I should see "Low GPA"
+
+    When I click on "Low GPA"
+    Then I should see "Asian"
+    Then I should see "Other"
+    Then I should see "2.5 - 3.0"
