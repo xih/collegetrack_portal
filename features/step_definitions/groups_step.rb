@@ -9,29 +9,33 @@ Given /^the following groups exist for user: "(.*)":$/ do |user, groups_table|
   	end
 end
 
-And /^I check the page$/ do
-	puts page.body
-end
-
 When /^I press the "(.*)" cell$/ do |text|
 	page.find('.cell', :text => text).find(:xpath, "..").click
 	
 end
 
 When /^I press the "(.*)" button$/ do |text|
-	page.find('button', :text => "#{text}").click
+  page.find('button', :text => "#{text}").click
 end
 
-Then /^I wait a bit$/ do
-	sleep 5
+Then /^I wait for a bit$/ do
+	sleep 1
 end
 
 When /^I fill in "(.*)" with "(.*)"$/ do |title, value|
 	page.find('a', :text => title).find(:xpath, "..").find('input').set value
 end
 
-Given /^I (?:|add|remove) the group filters: (.*)$/ do |filters|
-  filters = filters.split("\s*,\s*").reject { |f| f == "Student" }
+And /^I press the "(.*)" category$/ do |category|
+  page.find('#accordian ul li h3', :text => category).click
+end
+
+Then /^"(.*)" should be selected$/ do |item|
+  page.find('a', :text => item)['class'] == '.selected'
+end
+
+When /^I select the filters: (.*)$/ do |filters|
+  filters = filters.split(", ").reject { |f| f == "Student" }
   page.all('#accordian ul li h3').each do |category|
     category.click
     page.all('#accordian ul li ul li a').each do |link|

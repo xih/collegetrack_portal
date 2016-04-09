@@ -1,3 +1,4 @@
+@javascript
 Feature: Groups Tab
   As a College Track staff,
   I want to be able see the list of  groups that I have saved
@@ -20,26 +21,61 @@ Background: Users have been added to the database
   And I am on the login page
   And I login as "petrduong@gmail.com"
 
+ Scenario: Check to see if the database is reflected
+    Given I follow "Groups"
+    Then I should see "Low GPA"
+    And I should see "Young"
+    And I should see "Old"
+
+    When I press the "Young" cell
+    And I press the "Year" category
+    Then "9th Grade" should be selected
+    And "10th Grade" should be selected
+
+    When I press "Cancel"
+    Then I should be on the groups index page
 
  Scenario: Add a Group
-    Given I am on the groups tab
-    And I go to the add button
-    When I fill in "Group Name" with "High GPA"
-    And I press "Save"
-    Then I wait a bit
-    And I should be on the groups index page
+    Given I follow "Groups"
+    And I press "+"
+    Then I should be on the add group page
 
-  Scenario: Update a group to include race
-    Given I am on the groups tab
-    Then I should see "Low GPA"
+    When I fill in "Group Name" with "High GPA"
+    And I select the filters: 4.0 +, 3.5 - 4.0
+    And I press "Save"
+    And I wait for a bit
+    Then I should be on the groups index page
+    And I should see "High GPA"
+
+    When I press the "High GPA" cell
+    And I press the "gpa" category
+    Then "4.0 +" should be selected
+    Then "3.5 - 4.0" should be selected
+
+  Scenario: Update a group to include Year
+    Given I follow "Groups"
     When I press the "Low GPA" cell
     Then I should be on the edit group page
     And I should see "Low GPA"
+
+    When I select the filters: 9th Grade, 10th Grade
     And I press "Save"
+    And I wait for a bit
     Then I should be on the groups index page
-    And I should see "Low GPA"
 
     When I press the "Low GPA" cell
-    Then I should see "Asian"
-    Then I should see "Other"
-    Then I should see "2.5 - 3.0"
+    When I press the "Year" category
+    Then "9th Grade" should be selected
+    And "10th Grade" should be selected
+
+  Scenario: Delete a group
+    Given I follow "Groups"
+    When I press the "Young" cell
+    Then I should see "Delete"
+
+    When I press "Delete"
+    And I wait for a bit
+    Then I should be on the groups index page
+    And I should not see "Delete"
+
+
