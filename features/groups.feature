@@ -25,7 +25,6 @@ Background: Users have been added to the database
     Given I am on the groups tab
     And I go to the add button
     When I fill in "Group Name" with "High GPA"
-    And I add the group filters: "4.0 +"
     And I press "Save"
     Then I wait a bit
     And I should be on the groups index page
