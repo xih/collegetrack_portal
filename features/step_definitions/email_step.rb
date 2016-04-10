@@ -7,6 +7,18 @@ Mail.defaults do
   delivery_method :test
 end
 
+Then /^the recipient fields should (not )?contain: (.*)$/ do |option, emails|
+  emails = emails.split(", ")
+  people = page.all('.filter_box .left_fil').map { |e| e.text }
+  emails.each do |email|
+    if option
+      people.should_not include(email)
+    else
+      people.should include(email)
+    end
+  end
+end
+
 Then /^(?:|I )should see the following fields:(.*)$/ do |fields|
   trim_fields = fields.gsub(/,/, ' ')
   trim_fields.split.each do |name|

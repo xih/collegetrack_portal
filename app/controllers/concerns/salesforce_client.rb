@@ -33,19 +33,19 @@ module SalesforceClient
         gpa_query = []
         values.each do |range|
           lowerRange = range[0..3].to_f
-          puts "lower range: " + lowerRange.to_s
+          # puts "lower range: " + lowerRange.to_s
           if lowerRange == 4.0
             gpa_query << "UC_GPA__c >= 4.0"
-            puts "gpa_query: " + gpa_query.to_s
+            # puts "gpa_query: " + gpa_query.to_s
           else
             upperRange = range[6..-1].to_f
-            puts "lower range: " + lowerRange.to_s + " upper range: " + upperRange.to_s
+            # puts "lower range: " + lowerRange.to_s + " upper range: " + upperRange.to_s
             gpa_query << "(UC_GPA__c >= #{lowerRange} AND UC_GPA__c <= #{upperRange})"
             
-            puts "gpa_query: " + gpa_query.to_s
+            # puts "gpa_query: " + gpa_query.to_s
           end
           options << "(" + gpa_query.join(' OR ') + ")"
-          puts "options: " + options.to_s
+          # puts "options: " + options.to_s
         end
       else
         query_key = get_column(category)

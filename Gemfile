@@ -16,8 +16,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'cucumber-rails', :require => false
   gem 'selenium-webdriver'
-  gem 'capybara-webkit'
-  # gem "capybara-webkit"
   gem 'rake'
   gem 'simplecov', :require => false, :group => :test
   gem 'rspec', '~> 3.2.0'

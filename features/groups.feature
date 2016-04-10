@@ -29,8 +29,7 @@ Background: Users have been added to the database
 
     When I press the "Young" cell
     And I press the "Year" category
-    Then "9th Grade" should be selected
-    And "10th Grade" should be selected
+    Then the following filters should be selected: 9th Grade, 10th Grade
 
     When I press "Cancel"
     Then I should be on the groups index page
@@ -41,6 +40,7 @@ Background: Users have been added to the database
     Then I should be on the add group page
 
     When I fill in "Group Name" with "High GPA"
+    And I press the "gpa" category
     And I select the filters: 4.0 +, 3.5 - 4.0
     And I press "Save"
     And I wait for a bit
@@ -49,8 +49,7 @@ Background: Users have been added to the database
 
     When I press the "High GPA" cell
     And I press the "gpa" category
-    Then "4.0 +" should be selected
-    Then "3.5 - 4.0" should be selected
+    Then the following filters should be selected: 4.0 +, 3.5 - 4.0
 
   Scenario: Update a group to include Year
     Given I follow "Groups"
@@ -58,15 +57,15 @@ Background: Users have been added to the database
     Then I should be on the edit group page
     And I should see "Low GPA"
 
-    When I select the filters: 9th Grade, 10th Grade
+    When I press the "Year" category
+    And I select the filters: 9th Grade, 10th Grade
     And I press "Save"
     And I wait for a bit
     Then I should be on the groups index page
 
     When I press the "Low GPA" cell
     When I press the "Year" category
-    Then "9th Grade" should be selected
-    And "10th Grade" should be selected
+    Then the following filters should be selected: 9th Grade, 10th Grade
 
   Scenario: Delete a group
     Given I follow "Groups"

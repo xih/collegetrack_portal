@@ -26,23 +26,7 @@ When /^I fill in "(.*)" with "(.*)"$/ do |title, value|
 	page.find('a', :text => title).find(:xpath, "..").find('input').set value
 end
 
-And /^I press the "(.*)" category$/ do |category|
-  page.find('#accordian ul li h3', :text => category).click
-end
 
-Then /^"(.*)" should be selected$/ do |item|
-  page.find('a', :text => item)['class'] == '.selected'
-end
 
-When /^I select the filters: (.*)$/ do |filters|
-  filters = filters.split(", ").reject { |f| f == "Student" }
-  page.all('#accordian ul li h3').each do |category|
-    category.click
-    page.all('#accordian ul li ul li a').each do |link|
-      if filters.include?(link.text)
-        link.click
-      end
-  	end
-  end
-end
+
 
