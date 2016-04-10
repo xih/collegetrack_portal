@@ -19,7 +19,7 @@ When /^I press the "(.*)" button$/ do |text|
 end
 
 Then /^I wait for a bit$/ do
-	sleep 1
+	sleep 3
 end
 
 When /^I fill in "(.*)" with "(.*)"$/ do |title, value|

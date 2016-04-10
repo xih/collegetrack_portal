@@ -67,3 +67,13 @@ Then /^all fields on the email page should be empty$/ do
   expect(page.find('#email_subject').value).to be_blank
   expect(page.find('#email_body').value).to    be_blank
 end
+
+
+Then /^(?:|I )click the x button on "(.*)"$/ do |filters|
+  filters = filters.split(",")
+  page.all('#filters .ui_fil').each do |filter|
+    if filters.include?(filter.find('.left_fil').text)
+      filter.find('.x').click
+    end
+  end
+end

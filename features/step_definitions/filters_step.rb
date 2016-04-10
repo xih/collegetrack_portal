@@ -1,13 +1,10 @@
 When /^I select the filters: (.*)$/ do |filters|
-  filters = filters.split(", ").reject { |f| f == "Student" }
-  # page.all('#accordian ul li h3').each do |category|
-  #   category.click
-    page.all('#accordian ul li ul li a').each do |link|
-      if filters.include?(link.text)
-        link.click
-      end
-  	# end
-  end
+  	filters = filters.split(", ").reject { |f| f == "Student" }
+	page.all('#accordian ul li ul li a').each do |link|
+	  if filters.include?(link.text)
+	    link.click
+	  end
+  	end
 end
 
 When /^I save the filters$/ do
@@ -31,14 +28,4 @@ end
 
 And /^I press the "(.*)" category$/ do |category|
   page.find('#accordian ul li h3', :text => category).click
-end
-
-Then /^(?:|I )click the x button on "(.*)"$/ do |filters|
-  filters = filters.split(",")
-  page.all('#filters .ui_fil').each do |filter|
-    if filters.include?(filter.find('.left_fil').text)
-      filter.find('.x').click
-    end
-  end
-  sleep 3
 end
