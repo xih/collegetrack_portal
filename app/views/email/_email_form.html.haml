@@ -1,3 +1,6 @@
+- content_for :head do
+  = javascript_include_tag 'group_filters'
+
 = form_tag(emails_path, {multipart: true, id: "email_form"}) do
   #email_header
     #recipient_header
@@ -31,6 +34,17 @@
         .left_fil Student
         .x
     = link_to "change filters", "", :id => "change_filter"
+    %div{:id => "button-group"}
+      %div{:class => "btn-group"}
+        %button{:type => "button", :class => "btn btn-primary dropdwon", 'data-toggle' => 'dropdown', 'aria-haspopup' => 'true', 'aria-expanded' => 'false'}
+          Groups
+          %span{:class => 'caret'}
+        %ul{:class => "dropdown-menu", :id => "dmenu"}
+          - @groups.each do |group|
+            %li
+              %a{:href => '#', :class => 'group_item', :onclick => 'grab_group_and_save()'}
+                %meta group.filters
+                = group.name
 
   %table#compose_box
     %tr

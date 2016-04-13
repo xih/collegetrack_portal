@@ -4,6 +4,8 @@ var Filter = {
         $('#accordian').on('click', 'h3', Filter.slide);
         $('#accordian').on('click', 'a', Filter.highlight);
         $('#accordian').on('click', '#save_filter', Filter.save);
+        console.log($('#dmenu'));
+        $('#filter_label').on('click', '.group_item', Filter.grab_group_and_save)
         Filter.pull_emails();
     },
     slide: function() {

@@ -7,6 +7,7 @@ class EmailController < ApplicationController
     # Set filter values for _filter partial
     @filter_values = get_filter_values
     session[:filter_values] = @filter_values
+    @groups = current_user.groups
   end
 
   def create
