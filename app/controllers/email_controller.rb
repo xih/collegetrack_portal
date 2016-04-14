@@ -5,7 +5,8 @@ class EmailController < ApplicationController
 
   def new
     # Set filter values for _filter partial
-    @filter_values = get_filter_values
+    group_filters = {"Groups" => current_user.groups.each.map{|group| group.name}}
+    @filter_values = group_filters.merge(get_filter_values)
     session[:filter_values] = @filter_values
   end
 
@@ -50,7 +51,68 @@ class EmailController < ApplicationController
 
   def email_list
     filters = params[:filters]
-    render json: generate_email(filters).to_json
+    puts filters
+    all_filters = get_filter_values
+    extra_filters = {}
+    filters.each do |category, value|
+      if category == "Groups"
+        #puts "Group: " + value.to_s
+        group = current_user.groups.where(:name => value).first
+        group.filters.split(", ").each do |filter|
+          #puts "filter: " + filter.to_s
+          all_filters.each do |c, v|
+            #puts "c: " + c.to_s + " v: " + v.to_s
+            if v.include? filter
+              if extra_filters.keys.include? c
+                extra_filters[c] << filter
+              else
+                extra_filters[c] = [filter]
+              end
+              break
+            end
+          end
+        end
+      else
+        if extra_filters.keys.include? category
+          if value[0] != "Student"
+            extra_filters[category].concat(value)
+          end
+        else
+          extra_filters[category] = value
+        end
+      end
+    end
+    # filters.each do |category, value|
+    #   if category == "Groups"
+    #     puts "category is groups!!!"
+    #     puts value
+    #     value.each do |g|
+    #       group = current_user.groups.where(:name => g).first
+    #       group.filters.split(", ").each do |filter|
+    #         puts "filter: " + filter.to_s
+    #         all_filters.each do |c, v|
+    #           if v == filter
+    #             puts "v == filter: " + v.to_s
+    #             if extra_filters.keys.include? c
+    #               extra_filters[c] << filter
+    #             else
+    #               extra_filters[c] = filter
+    #             end
+    #             break
+    #           end
+    #         end
+    #       end
+    #     end
+    #   else
+    #     if extra_filters.keys.include? category
+    #       extra_filters[category] << filter
+    #     else
+    #       extra_filters[category] = filter
+    #     end
+    #   end
+    # end
+    puts "extra_filters" + extra_filters.to_s
+    render json: generate_email(extra_filters).to_json
   end
 
   def user_list
