@@ -26,6 +26,10 @@ Then /^the following filters should be selected: (.*)$/ do |filters|
 	end
 end
 
+Then /^I should see "(.*)" in the accordian$/ do |item|
+	expect(page.find('#accordian')).to have_content(item)
+end 
+
 And /^I press the "(.*)" category$/ do |category|
   page.find('#accordian ul li h3', :text => category).click
 end
