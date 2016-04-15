@@ -58,7 +58,7 @@
   margin-left: 50px;
   margin-top: 20px;
   background: #e7e7e7;
-  width: 100%;
+  width: 80%;
   color: white;
   margin-right: 30px;
 }
@@ -144,14 +144,49 @@
 	}
 }
 #name {
-	a {
+	text {
 		font-size: 25px;
 		color: #00b4f0;
+		margin-left: 20px;
 	}
 	input {
 		width: 70%;
 		height: 45px;
 		font-size: 25px;
-		margin-left: 10px;
+		margin-left: 15px;
+		transition: box-shadow 0.3s, border 0.3s;
+		border-radius:10px;
 	}
 }
+#to_input {
+	text {
+		font-size: 25px;
+		color: #00b4f0;
+		margin-left: 20px;
+	}
+	input {
+		width: 82%;
+		height: 45px;
+		font-size: 25px;
+		margin-left: 15px;
+	}
+}
+#additional {
+	text {
+		font-size: 25px;
+		color: #00b4f0;
+		margin-left: 20px;
+	}
+	input {
+		width: 65%;
+		height: 45px;
+		font-size: 25px;
+		margin-left: 15px;
+		transition: box-shadow 0.3s, border 0.3s;
+		border-radius:10px;
+	}
+
+
+
+}
+
