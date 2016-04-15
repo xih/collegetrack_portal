@@ -1,21 +1,53 @@
+= tinymce_assets
+= tinymce
+
 - content_for(:head) do
   = stylesheet_link_tag 'groups'
   = javascript_include_tag 'groups'
+  //= javascript_include_tag 'filter'
+  //= javascript_include_tag 'email'
+  //= stylesheet_link_tag 'email'
 
 = render 'partials/header'
+
+
 
 %div#name
   %a Group Name
   %input{:type => "text"}
 
-.container#add_group
-  = render 'add_edit_partial'
+
+
+
+= javascript_include_tag 'email'
+= stylesheet_link_tag 'email'
+  
+
+%div#additional_email
+  #email_header
+  #recipient_header
+  .email_fields_table
+  .email_fields_row#to_row
+  .email_label
+  To:
+  .recipent_right
+    = text_area :email, :to, :class => 'recipient_text', :multiple => true  
+
+
+  .container#add_group
+    = render 'add_edit_partial'
 
 %br
 %br
 %br
+
+%div#email
+  %a Additional Emails
+  %input{:type => "text"}
+  //text_area :email, :to, :class => 'recipient_text', :multiple => true
 
 %div#buttons
   = link_to groups_index_path do
     %button.button-tool Cancel
   %button{:id => 'save_filter', :class => 'button-tool'} Save
+
