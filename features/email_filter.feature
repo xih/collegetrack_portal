@@ -25,6 +25,7 @@ Scenario: Add a single filter with default filter selected
   When I press the "gpa" category
   And I select the filters: 3.5 - 4.0
   And I save the filters
+  And I wait for a while
   Then the recipient fields should contain: a.thomasadeyemo@gmail.com, asalazar@unityhigh.org
   And the recipient fields should not contain: a.c.perfino@gmail.com, aaronbrowne29@gmail.com
 
@@ -35,6 +36,7 @@ Scenario: Adding multiple filters with existing filters
   And I press the "gpa" category
   And I select the filters: 2.5 - 3.0
   And I save the filters
+  And I wait for a while
   Then the recipient fields should not contain: a.c.perfino@gmail.com, aaronbrowne29@gmail.com
   And the recipient fields should contain: habemulu@yahoo.com, juancuriel33@gmail.com
 
@@ -42,7 +44,7 @@ Scenario: Adding multiple filters with existing filters
   And I press the "Race" category
   And I select the filters: Latino, Multiracial
   And I save the filters
-  And I wait for a bit
+  And I wait for a while
   And the recipient fields should contain: juancuriel33@gmail.com
   And the recipient fields should not contain: habemulu@yahoo.com
 
@@ -52,6 +54,7 @@ Scenario: Removing a single filter through the x button
   And I press the "Race" category
   And I select the filters: Asian
   And I save the filters
+  And I wait for a while
   Then the recipient fields should not contain: aaronbrowne29@gmail.com
   
   When I click the x button on "Asian"
