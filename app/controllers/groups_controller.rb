@@ -13,8 +13,15 @@ class GroupsController < ApplicationController
   end
 
   def add
-  	return
+    return
   end
+
+  # def add_emails
+  #   emails = params[:emails]
+  #   @group = Group.where(:name => params[:name], :filters => params[:filters])
+  #   @list = @group.list_of_additional_emails
+  #   return
+  # end
 
   def delete
   	name = params[:name]
