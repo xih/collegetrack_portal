@@ -33,10 +33,26 @@ var Filter = {
         } else {
         	name = $('#name a').text()
         }
+        // var extra_emails = $('#additional')
+        // if($('#additional input').length) {
+        //     extra_emails = extra_emails.val().split(',');
+        // } else {
+        //     extra_emails = $('#extra_emails a').text();
+        // }
+        var extra_emails = ""
+        extra_emails = $('#additional input');
+        if($('#additional input').length) {
+            extra_emails = extra_emails.val()
+        } else {
+            extra_emails = $('#additional a').text()
+        }
+
         console.log(name)
+        console.log(extra_emails)
         var data = {
         	'filters': filters,
-        	'name': name
+        	'name': name,
+            'extra_emails': extra_emails
         }
         $.ajax({
       		url: "/groups/create",

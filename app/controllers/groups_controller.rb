@@ -8,7 +8,8 @@ class GroupsController < ApplicationController
   def edit
   	@filters = params[:filters]
   	@name = params[:name]
-  	@group = Group.where(:name => params[:name], :filters => params[:filters])
+  	@group = current_user.groups.where(:name => params[:name], :filters => params[:filters])
+    @extra_emails = params[:extra_emails]
   	return
   end
 
@@ -25,7 +26,7 @@ class GroupsController < ApplicationController
 
   def delete
   	name = params[:name]
-  	if Group.exists?(:name => name)
+  	if current_user.groups.exists?(:name => name)
   		group = current_user.groups.where(:name => name).first
   		group.destroy()
   	end
@@ -35,15 +36,18 @@ class GroupsController < ApplicationController
 
 
   def create
+    # params[:extra_emails] = "A, B, C"
+    extra_emails = params[:extra_emails]
   	name = params[:name]
   	filters = params[:filters]
-  	if name and filters
-  		if Group.exists?(:name => name)
-  			group = Group.where(:name => name).first
+  	if name and filters 
+  		if current_user.groups.exists?(:name => name)
+  			group = current_user.groups.where(:name => name).first
   			group.filters = filters
+        group.extra_emails = extra_emails
   			group.save()
   		else
-  			current_user.groups.create!(:name => name, :filters => filters)
+  			current_user.groups.create!(:name => name, :filters => filters, :extra_emails => extra_emails)
   		end
   		render nothing: true, status: 278
   	else

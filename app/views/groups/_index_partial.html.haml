@@ -3,6 +3,6 @@
     %div.button
       %button#add_group +
   - @groups.each do |g|
-    = link_to edit_group_path(:name => g.name, :filters => g.filters), :method => :post do
+    = link_to edit_group_path(:name => g.name, :filters => g.filters, :extra_emails => g.extra_emails), :method => :post do
       %div.cell= g.name
 
