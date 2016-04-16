@@ -68,6 +68,10 @@ Then /^all fields on the email page should be empty$/ do
   expect(page.find('#email_body').value).to    be_blank
 end
 
+Then /^I wait for a while$/ do
+  sleep 10
+end
+
 
 Then /^(?:|I )click the x button on "(.*)"$/ do |filters|
   filters = filters.split(",")

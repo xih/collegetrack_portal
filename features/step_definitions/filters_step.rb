@@ -1,4 +1,4 @@
-When /^I select the filters: (.*)$/ do |filters|
+When /^I select the (?:following )filters: (.*)$/ do |filters|
   	filters = filters.split(", ").reject { |f| f == "Student" }
 	page.all('#accordian ul li ul li a').each do |link|
 	  if filters.include?(link.text)

@@ -20,6 +20,7 @@ Background: Users have been added to the database
 
   And I am on the login page
   And I login as "petrduong@gmail.com"
+  And I wait for a while
 
   Scenario:
     Given the recipient fields should contain: 35347@cv.k12.ca.us
@@ -33,6 +34,9 @@ Background: Users have been added to the database
     And I should see "Test" in the accordian
 
     When I select the following filters: Test
+    And I save the filters
+    And I wait for a while
+    Then I should see "Test"
     Then the recipient fields should not contain: 35347@cv.k12.ca.us
 
 
