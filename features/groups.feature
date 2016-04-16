@@ -77,4 +77,15 @@ Background: Users have been added to the database
     Then I should be on the groups index page
     And I should not see "Delete"
 
+  Scenario: Add an email to a group
+    Given I follow "Groups"
+    And I press "+"
+    Then I should be on the add group page
+
+    When I fill in "Group Name" with "test"
+    When I fill in "Email" with "test@berkeley.edu"
+    And I press "Save"
+    And I wait for a bit
+    Then I should be on the groups index page
+    And I should see "test"
 
