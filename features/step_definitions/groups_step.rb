@@ -23,7 +23,7 @@ Then /^I wait for a bit$/ do
 end
 
 When /^I fill in "(.*)" with "(.*)"$/ do |title, value|
-	page.find('a', :text => title).find(:xpath, "..").find('input').set value
+	page.find('text', :text => title).find(:xpath, "..").find('input').set value
 end
 
 
