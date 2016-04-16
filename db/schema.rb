@@ -37,12 +37,15 @@ ActiveRecord::Schema.define(version: 20160406064011) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "name"
     t.string   "filters"
     t.integer  "user_id"
+    t.string   "extra_emails"
   end
+
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id"
 
   create_table "salesforce_clients", force: :cascade do |t|
     t.string   "password"

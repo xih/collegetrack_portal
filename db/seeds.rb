@@ -20,7 +20,7 @@
 # User.create!(:name => 'Avi Frankl', :email => 'afrankl@berkeley.edu', :password => 'password', :role => 'Admin')
 
 # User.create!(:name => 'Clark Chen', :email => 'clark_chen@berkeley.edu', :password => 'password', :role => 'Admin')
-# User.create!(:name => 'Dennis Xing', :email => 'yxing@berkeley.edu', :password => 'password', :role => 'Admin')
+User.create!(:name => 'Dennis Xing', :email => 'yxing@berkeley.edu', :password => 'password', :role => 'Admin')
 # User.create!(:name => 'Brandon Chau', :email => 'brandonachau@berkeley.edu', :password => 'password', :role => 'Admin')
 
 User.all.each do |u|

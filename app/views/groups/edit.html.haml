@@ -7,12 +7,24 @@
 %div#name
   %a= @name
 
+
+
+%br
+%div#additional
+  %text Additional Emails
+  %br
+  %text= @extra_emails
+
 .container#add_group
   = render 'add_edit_partial'
 
 %br
 %br
 %br
+
+
+  
+
 
 %div#buttons
   = link_to groups_index_path do
