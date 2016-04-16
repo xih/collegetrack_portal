@@ -31,8 +31,8 @@ class GroupsController < ApplicationController
   	name = params[:name]
   	filters = params[:filters]
   	if name and filters
-  		if Group.exists?(:name => name)
-  			group = Group.where(:name => name).first
+  		if current_user.groups.exists?(:name => name)
+  			group = current_user.groups.where(:name => name).first
   			group.filters = filters
   			group.save()
   		else
@@ -40,7 +40,7 @@ class GroupsController < ApplicationController
   		end
   		render nothing: true, status: 278
   	else
-  		render nothing: true, status: 500
+  		render nothing: true, status: 278
   	end
   end
 end
