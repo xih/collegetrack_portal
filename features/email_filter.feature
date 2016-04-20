@@ -58,7 +58,7 @@ Scenario: Removing a single filter through the x button
   Then the recipient fields should not contain: aaronbrowne29@gmail.com
   
   When I click the x button on "Asian"
-  And I wait for a bit
+  And I wait for a while
   Then the recipient fields should contain: aaronbrowne29@gmail.com
 
 # Scenario: Deselecting filters by changing filters

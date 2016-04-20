@@ -17,13 +17,6 @@ class GroupsController < ApplicationController
     return
   end
 
-  # def add_emails
-  #   emails = params[:emails]
-  #   @group = Group.where(:name => params[:name], :filters => params[:filters])
-  #   @list = @group.list_of_additional_emails
-  #   return
-  # end
-
   def delete
   	name = params[:name]
   	if current_user.groups.exists?(:name => name)
@@ -36,7 +29,6 @@ class GroupsController < ApplicationController
 
 
   def create
-    # params[:extra_emails] = "A, B, C"
     extra_emails = params[:extra_emails]
   	name = params[:name]
   	filters = params[:filters]

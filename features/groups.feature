@@ -60,7 +60,7 @@ Background: Users have been added to the database
     When I press the "Year" category
     And I select the filters: 9th Grade, 10th Grade
     And I press "Save"
-    And I wait for a bit
+    And I wait for a while
     Then I should be on the groups index page
 
     When I press the "Low GPA" cell
