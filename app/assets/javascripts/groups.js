@@ -26,33 +26,29 @@ var Filter = {
         $('#accordian ul').find(".selected").each(function() {
         	filters = filters.concat($(this).text().concat(", "));
         });
-        console.log($('#name').find('input'))
         var name = $('#name input');
-        if($('#name input').length) {
+        if(name.length) {
         	name = name.val()
         } else {
         	name = $('#name a').text()
         }
-        // var extra_emails = $('#additional')
-        // if($('#additional input').length) {
-        //     extra_emails = extra_emails.val().split(',');
-        // } else {
-        //     extra_emails = $('#extra_emails a').text();
-        // }
-        var extra_emails = ""
-        extra_emails = $('#additional input');
-        if($('#additional input').length) {
+        var id = $('#name meta');
+        if(id.length) {
+            id = id.attr('content');
+        } else {
+            id = null;
+        }
+        var extra_emails = $('#additional input');
+        if(extra_emails.length) {
             extra_emails = extra_emails.val()
         } else {
             extra_emails = $('#additional a').text()
         }
-
-        console.log(name)
-        console.log(extra_emails)
         var data = {
         	'filters': filters,
         	'name': name,
-            'extra_emails': extra_emails
+            'extra_emails': extra_emails,
+            'id': id,
         }
         $.ajax({
       		url: "/groups/create",

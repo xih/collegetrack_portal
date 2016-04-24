@@ -6,6 +6,7 @@
 
 %div#name
   %a= @name
+  %meta{:content => "#{@group.id}"}
 
 
 
@@ -30,5 +31,5 @@
   = link_to groups_index_path do
     %button.button-tool Cancel
   %button{:id => 'save_filter', :class => 'button-tool'} Save
-  = link_to delete_group_path(:name => @name), :method => :post do
+  = link_to delete_group_path(:id => @id), :method => :post do
     %button.button-tool Delete

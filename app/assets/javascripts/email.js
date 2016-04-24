@@ -62,6 +62,13 @@ var RecipientField = {
         $('#recipient_header').on('click', '.x', RecipientField.remove);
         $('#recipient_header').on('keypress', '#email_subject', RecipientField.disableEnter);
         $('#recipient_header').on('click', '.recipient_right', RecipientField.selectTextArea);
+        $('#email_header').on('click', '#clear-emails', RecipientField.clearEmails);
+
+    },
+    clearEmails: function() {
+        $('#bcc_row').find('.filter_box').each(function(){
+            $(this).remove();
+        });
     },
     disableSelect: function() {
         return false;
@@ -157,6 +164,7 @@ var RecipientField = {
         html_calc.remove();
         return width;
     },
+
     checkEnter: function(e) {
         var key = (e.keyCode ? e.keyCode : e.which);
         if (key === 13) {
