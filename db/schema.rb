@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20160424172714) do
     t.string   "extra_emails"
   end
 
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id"
+
   create_table "salesforce_clients", force: :cascade do |t|
     t.string   "password"
     t.string   "security_token"
