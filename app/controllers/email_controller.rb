@@ -53,9 +53,12 @@ class EmailController < ApplicationController
     filters = params[:filters]
     all_filters = get_filter_values
     extra_filters = {}
+    extra_emails = []
     filters.each do |category, value|
+      # adding the filters and extra emails of the selected group
       if category == "Groups"
         group = current_user.groups.where(:name => value).first
+        extra_emails.concat(group.extra_emails.split(',').map(&:strip))
         group.filters.split(", ").each do |filter|
           all_filters.each do |c, v|
             if v.include? filter
@@ -78,7 +81,9 @@ class EmailController < ApplicationController
         end
       end
     end
-    render json: generate_email(extra_filters).to_json
+    # combine emails from filters with extra emails from groups
+    emails = generate_email(extra_filters).concat(extra_emails)
+    render json: emails.to_json
   end
 
   def user_list
