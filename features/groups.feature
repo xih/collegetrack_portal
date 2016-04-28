@@ -40,7 +40,7 @@ Background: Users have been added to the database
     Then I should be on the add group page
 
     When I fill in "Group Name" with "High GPA"
-    And I press the "gpa" category
+    And I press the "GPA" category
     And I select the filters: 4.0 +, 3.5 - 4.0
     And I press "Save"
     And I wait for a bit
@@ -48,7 +48,7 @@ Background: Users have been added to the database
     And I should see "High GPA"
 
     When I press the "High GPA" cell
-    And I press the "gpa" category
+    And I press the "GPA" category
     Then the following filters should be selected: 4.0 +, 3.5 - 4.0
 
   Scenario: Update a group to include Year
@@ -88,4 +88,3 @@ Background: Users have been added to the database
     And I wait for a bit
     Then I should be on the groups index page
     And I should see "test"
-

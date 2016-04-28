@@ -69,12 +69,13 @@ Scenario: Removing a single filter through the x button
     Then the recipient fields should contain: romoroman1@gmail.com
     Then the recipient fields should not contain: aaronbrowne29@gmail.com
 
-  # Scenario: Filter by Workshop Enrollment
-  #   Given I press the "Workshops" category
-  #   And I select the filters:
-  #   And I save the filters
-  #   And I wait for a while
-  #   Then ...
+  Scenario: Filter by Workshop Enrollment
+    Given I press the "Workshops" category
+    And I select the filters: AA Tutoring W0
+    And I save the filters
+    And I wait for a while
+    Then the recipient fields should contain: rayj986@gmail.com
+    Then the recipient fields should not contain: aaronbrowne29@gmail.com
 
 
 # Scenario: Deselecting filters by changing filters
