@@ -22,7 +22,7 @@ Scenario: Add a single filter with default filter selected
   Given I should see "Parent/Student"
   When I press the "Parent/Student" category
   Then the following filters should be selected: Student
-  When I press the "gpa" category
+  When I press the "GPA" category
   And I select the filters: 3.5 - 4.0
   And I save the filters
   And I wait for a while
@@ -33,12 +33,12 @@ Scenario: Adding multiple filters with existing filters
 
   Given I press the "High School" category
   And I select the filters: Oakland Technical High School
-  And I press the "gpa" category
+  And I press the "GPA" category
   And I select the filters: 2.5 - 3.0
   And I save the filters
   And I wait for a while
   Then the recipient fields should not contain: a.c.perfino@gmail.com, aaronbrowne29@gmail.com
-  And the recipient fields should contain: habemulu@yahoo.com, juancuriel33@gmail.com
+  And the recipient fields should contain: jokhismom@yahoo.com, juancuriel33@gmail.com
 
   When I follow "change filters"
   And I press the "Race" category
@@ -60,6 +60,22 @@ Scenario: Removing a single filter through the x button
   When I click the x button on "Asian"
   And I wait for a while
   Then the recipient fields should contain: aaronbrowne29@gmail.com
+
+  Scenario: Filter for Citizenship
+    Given I press the "Citizenship" category
+    And I select the filters: Missing
+    And I save the filters
+    And I wait for a while
+    Then the recipient fields should contain: romoroman1@gmail.com
+    Then the recipient fields should not contain: aaronbrowne29@gmail.com
+
+  # Scenario: Filter by Workshop Enrollment
+  #   Given I press the "Workshops" category
+  #   And I select the filters:
+  #   And I save the filters
+  #   And I wait for a while
+  #   Then ...
+
 
 # Scenario: Deselecting filters by changing filters
 
@@ -111,3 +127,4 @@ Scenario: Removing a single filter through the x button
 #   As a College Track staff
 #   When I select Oakland filter
 #   Then I should see see student emails that correspond to these centers
+
