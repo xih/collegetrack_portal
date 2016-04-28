@@ -21,14 +21,14 @@ module SalesforceClient
     # Set Student/Parent filter options
     emailFields = grab_email(filters.delete("Parent/Student"))
     options << "(" + emailFields.map { |v| "#{v} != null" }.join(' OR ') + ")"
-    
-    
-    
+    session_options = []
+    filter_options = []
     
     # Set Additional Options
     filters.each do |category, values|
-      if category == "gpa"
-        options << "UC_GPA__c != null"
+      puts "category: " + category.to_s
+      if category == "GPA"
+        filter_options << "UC_GPA__c != null"
         # Set GPA filter options
         gpa_query = []
         values.each do |range|
@@ -44,26 +44,86 @@ module SalesforceClient
             
             # puts "gpa_query: " + gpa_query.to_s
           end
-          options << "(" + gpa_query.join(' OR ') + ")"
+          filter_options << "(" + gpa_query.join(' OR ') + ")"
           # puts "options: " + options.to_s
+        end
+      elsif category == "Workshops"
+        values.each do |v|
+          session_options << "Workshop__r.Name = '#{v}'"
         end
       else
         query_key = get_column(category)
         group = values.map {|v| "'#{v}'"}.join(', ')
-        options << "#{query_key} IN (#{group})"
+        filter_options << "#{query_key} IN (#{group})"
       end
     end
 
     # Join all options as a String and request to Salesforce
     query = options.join(' AND ')
-    response = self.client.query("SELECT #{emailFields.join(', ')}
+    puts "query: " + query
+    filter_query = filter_options.join(' AND ')
+    puts "filter query: " + filter_query
+    workshop_query = session_options.join(' OR ')
+    puts "workshop query: " + workshop_query
+    if filter_options != [] and session_options == []
+      puts "filter not empty, session empty"
+      query_string = "SELECT #{emailFields.join(', ')}
                    FROM Contact 
-                  WHERE #{query}")
+                  WHERE #{query} AND #{filter_query}"
+    elsif filter_options == [] and session_options != []
+      puts "filter empty, session not empty"
+      workshop_response = self.client.query("SELECT Student__c FROM Workshop_Enrollment__c WHERE Workshop__r.Name != null AND (#{workshop_query})").map(&:Student__c)
+      
+      puts "session student IDs: " + workshop_query
+      id_list = workshop_response.map {|v| "'#{v}'"}.join(', ')
+      puts "id list: " + id_list.to_s
+      query_string = "SELECT #{emailFields.join(', ')}
+                   FROM Contact 
+                  WHERE #{query} AND (Contact.Id != null AND Contact.Id IN (#{id_list}))"
+    elsif filter_options != [] and session_options != []
+      puts "filter not empty, session not empty"
+      workshop_response = self.client.query("SELECT Student__c FROM Workshop_Enrollment__c WHERE Workshop__r.Name != null AND (#{workshop_query})").map(&:Student__c)
+      id_list = workshop_response.map {|v| "'#{v}'"}.join(', ')
+      query_string = "SELECT #{emailFields.join(', ')}
+                   FROM Contact 
+                  WHERE #{query} AND (#{filter_query} OR (Contact.Id != null AND Contact.Id IN (#{id_list})))"
+    else
+      puts "both empty"
+      query_string = "SELECT #{emailFields.join(', ')}
+                   FROM Contact 
+                  WHERE #{query}"
+    end
+    puts "query: " + query_string
+    response = self.client.query(query_string)
+
+    
+    # query = options.join(' AND ')
+    # # Query for workshop sessions if exists
+    # response2 = nil
+    # if session_options != []
+    #   workshop_query = session_options.join(" OR ")
+    #   workshop_response = self.client.query("SELECT Student__c FROM Workshop_Enrollment__c WHERE Workshop__r.Name != null AND (#{workshop_query})").map(&:Student__c)
+    #   id_list = workshop_response.map {|v| "'#{v}'"}.join(', ')
+    #   response = client.query("SELECT #{emailFields.join(', ')} FROM Contact WHERE #{query}")
+    #   response2 = (client.query("SELECT #{emailFields.join(', ')} FROM Contact WHERE (Contact.Id != null AND Contact.Id IN (#{id_list}))"))
+    # else
+    #   response = self.client.query("SELECT #{emailFields.join(', ')}
+    #                FROM Contact 
+    #               WHERE #{query}")
+    # end
 
     # Extract emails according to Student/Parent filter values
     result = emailFields.flat_map do |field|
       response.map(&field.intern).compact
     end.sort { |x,y| y <=> x }
+    # if response2 != nil
+    #   result2 = emailFields.flat_map do |field|
+    #     response2.map(&field.intern).compact
+    #   end
+    #   result.concat(result2)
+    # end
+    # result.sort { |x,y| y <=> x }
+    # result
   end
 
   def get_filter_values
@@ -83,7 +143,9 @@ module SalesforceClient
     parent_student = ["Student", "Parent"]
     language = get_values('Primary_Home_Language__c')
     stem = get_values("STEM__c")
-    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years, "Language" => language, "stem" => stem, "gpa" => gpa, "High School" => high_schools}
+    citizenship = get_values("Citizen__c")
+    workshops = client.query("SELECT Workshop__r.Name FROM Workshop_Enrollment__c WHERE Workshop__r.Name != null GROUP BY Workshop__r.Name").map(&:Name)
+    {"Parent/Student" => parent_student, "Race" => races, "Gender" => genders, "Year" => years, "Language" => language, "Stem" => stem, "GPA" => gpa, "High School" => high_schools, "Citizenship" => citizenship, "Workshops" => workshops}
   end
 
   def get_values(column)
@@ -109,8 +171,12 @@ module SalesforceClient
       "Primary_Home_Language__c"
     when "stem"
       "STEM__c"
-    when "gpa"
+    when "GPA"
       "UC_GPA__c"
+    when "Citizenship"
+      "Citizen__c"
+    when "Workshop"
+      "Workshop__r.Name"
     else
     end
   end
