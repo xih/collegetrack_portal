@@ -7,11 +7,6 @@
   = stylesheet_link_tag 'email'
 
 
-//  content_for(:head) do
-//   = stylesheet_link_tag 'groups'
-//   = javascript_include_tag 'groups'
-
-
 
 = render 'partials/header'
 
@@ -25,9 +20,6 @@
     .x
     
     = render "filters", :filter_values => @filter_values
-    
-// = link_to "change filters", "", :id => "change_filter"
-// = render "filters", :filter_values => @filter_values
 
 
 

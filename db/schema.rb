@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406064011) do
+ActiveRecord::Schema.define(version: 20160424172714) do
 
   create_table "attachments", force: :cascade do |t|
     t.datetime "created_at",          null: false

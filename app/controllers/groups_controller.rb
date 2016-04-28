@@ -6,10 +6,11 @@ class GroupsController < ApplicationController
   end
 
   def edit
-  	@filters = params[:filters]
-  	@name = params[:name]
-  	@group = current_user.groups.where(:name => params[:name], :filters => params[:filters])
-    @extra_emails = params[:extra_emails]
+  	@group = current_user.groups.where(:id => params[:id].to_i).first
+    @name = @group.name
+    @id = @group.id
+    @filters = @group.filters
+    @extra_emails = @group.extra_emails
   	return
   end
 
@@ -18,9 +19,9 @@ class GroupsController < ApplicationController
   end
 
   def delete
-  	name = params[:name]
-  	if current_user.groups.exists?(:name => name)
-  		group = current_user.groups.where(:name => name).first
+    id = params[:id].to_i
+  	if current_user.groups.exists?(:id => id)
+  		group = current_user.groups.where(:id => id).first
   		group.destroy()
   	end
   	redirect_to groups_index_path
@@ -32,9 +33,10 @@ class GroupsController < ApplicationController
     extra_emails = params[:extra_emails]
   	name = params[:name]
   	filters = params[:filters]
+    id = params[:id].to_i
   	if name and filters
-  		if current_user.groups.exists?(:name => name)
-  			group = current_user.groups.where(:name => name).first
+  		if current_user.groups.exists?(:id => id)
+  			group = current_user.groups.where(:id => id).first
   			group.filters = filters
         group.extra_emails = extra_emails
   			group.save()

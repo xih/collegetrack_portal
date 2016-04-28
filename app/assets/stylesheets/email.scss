@@ -268,3 +268,12 @@ div.dropzone {
   color:black;
   font-size:90%;
 }
+
+#clear-all-emails {
+  float: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  :hover {
+    cursor: pointer;
+  }
+}
