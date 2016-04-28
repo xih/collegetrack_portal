@@ -26,11 +26,11 @@ var Filter = {
         $('#accordian ul').find(".selected").each(function() {
         	filters = filters.concat($(this).text().concat(", "));
         });
-        var name = $('#name input');
+        var name = $('#add_group_name input');
         if(name.length) {
         	name = name.val()
         } else {
-        	name = $('#name a').text()
+        	name = $('#add_group_name a').text()
         }
         var id = $('#name meta');
         if(id.length) {

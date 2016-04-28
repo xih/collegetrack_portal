@@ -4,22 +4,34 @@
 - content_for(:head) do
   = stylesheet_link_tag 'groups'
   = javascript_include_tag 'groups'
+  //= javascript_include_tag 'filter'
+  //= javascript_include_tag 'email'
+  //= stylesheet_link_tag 'email'
 
 = render 'partials/header'
 
 
 
-%div#name
+%div#add_group_name
   %text Group Name
   %input{:type => "text"}
+
+
+
+
+/ = javascript_include_tag 'email'
+/ = stylesheet_link_tag 'email'
   
 %br
 %div#additional
   %text Additional Emails
   %input{:type => "text"}
 
+
+
   .container#add_group
     = render 'add_edit_partial'
+
 %br
 
 %div#buttons
