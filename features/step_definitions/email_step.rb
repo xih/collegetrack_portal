@@ -69,7 +69,7 @@ Then /^all fields on the email page should be empty$/ do
 end
 
 Then /^I wait for a while$/ do
-  sleep 6
+  sleep 7
 end
 
 

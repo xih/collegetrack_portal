@@ -38,7 +38,7 @@ Scenario: Adding multiple filters with existing filters
   And I save the filters
   And I wait for a while
   Then the recipient fields should not contain: a.c.perfino@gmail.com, aaronbrowne29@gmail.com
-  And the recipient fields should contain: habemulu@yahoo.com, juancuriel33@gmail.com
+  And the recipient fields should contain: jokhismom@yahoo.com, juancuriel33@gmail.com
 
   When I follow "change filters"
   And I press the "Race" category
