@@ -37,10 +37,6 @@ Background: Users have been added to the database
 
     When I select the following filters: Test
     And I save the filters
-    And I wait for a while
-    Then I should see "Test"
-    Then the recipient fields should contain: adrianavargas321@gmail.com    
-    # Then the recipient fields should contain: 35347@cv.k12.ca.us
 
 
 
