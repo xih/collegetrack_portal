@@ -23,7 +23,7 @@ Background: Users have been added to the database
   And I login as "petrduong@gmail.com"
   And I wait for a while
 
-  # this does not work
+
   Scenario: Filter by Groups
     Given the recipient fields should contain: 35347@cv.k12.ca.us
     When I follow "change filters"
