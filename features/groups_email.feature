@@ -18,11 +18,13 @@ Background: Users have been added to the database
   | Old           |   11th Grade,12th Grade                   |
   | Test          |   3.0 - 3.5                               |
 
+
   And I am on the login page
   And I login as "petrduong@gmail.com"
   And I wait for a while
 
-  Scenario:
+  # this does not work
+  Scenario: Filter by Groups
     Given the recipient fields should contain: 35347@cv.k12.ca.us
     When I follow "change filters"
     Then I should see "Groups" in the accordian
@@ -37,7 +39,8 @@ Background: Users have been added to the database
     And I save the filters
     And I wait for a while
     Then I should see "Test"
-    Then the recipient fields should not contain: 35347@cv.k12.ca.us
+    Then the recipient fields should contain: adrianavargas321@gmail.com    
+    # Then the recipient fields should contain: 35347@cv.k12.ca.us
 
 
 
